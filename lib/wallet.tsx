@@ -13,13 +13,11 @@ type WalletContextProviderProps = {
 };
 
 export const WalletContextProvider: FC<WalletContextProviderProps> = ({ children, endpoint }) => {
-	const rpcEndpoint = useMemo(() => {
-		return (
-			endpoint ||
-			process.env.NEXT_PUBLIC_RPC_URL ||
-			clusterApiUrl((process.env.NEXT_PUBLIC_SOLANA_NETWORK as any) || "devnet")
-		);
-	}, [endpoint]);
+    // Force devnet endpoint for consistency with API airdrop (no env checks)
+    const rpcEndpoint = useMemo(() => {
+        if (endpoint) return endpoint;
+        return clusterApiUrl("devnet");
+    }, [endpoint]);
 
 	const wallets = useMemo(
 		() => [
