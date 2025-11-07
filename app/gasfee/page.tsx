@@ -152,7 +152,7 @@ export default function GasFeeCalculatorPage() {
 
 					{/* Custom Fee Calculator */}
 					<section className="rounded-xl border border-neutral-200 bg-white/90 p-6 shadow-lg shadow-neutral-200/40 backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-900/90 dark:shadow-black/20">
-						<div className="rounded-lg border border-neutral-200 bg-gradient-to-br from-blue-50 to-purple-50 p-6 dark:border-neutral-800 dark:from-blue-900/20 dark:to-purple-900/20">
+						<div className="rounded-lg border border-neutral-200 bg-neutral-100/80 p-6 dark:border-neutral-800 dark:bg-neutral-800/60">
 							<h2 className="mb-4 text-xl font-semibold sm:text-2xl">Calculate Total Fees</h2>
 							<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 								<div>
@@ -165,7 +165,7 @@ export default function GasFeeCalculatorPage() {
 											setSelectedTxType(e.target.value);
 											setCalculatedResult(null); // Reset result when type changes
 										}}
-										className="w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-neutral-700 dark:bg-neutral-900"
+										className="w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-700 dark:bg-neutral-900"
 									>
 										<option value="simpleTransfer">Simple Transfer</option>
 										<option value="tokenTransfer">Token Transfer</option>
@@ -188,7 +188,7 @@ export default function GasFeeCalculatorPage() {
 											setCalculatedResult(null); // Reset result when input changes
 										}}
 										placeholder="Enter number of transactions"
-										className="w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-neutral-700 dark:bg-neutral-900"
+										className="w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-700 dark:bg-neutral-900"
 									/>
 								</div>
 							</div>

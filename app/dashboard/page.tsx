@@ -375,31 +375,95 @@ useEffect(() => {
 			<h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Dashboard</h1>
 
 			{/* Portfolio Summary */}
-			<section className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.02] to-white/[0.01] p-8 shadow-[0_40px_120px_rgba(79,70,229,0.25)] backdrop-blur">
-				<div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-					<div className="text-left">
-						<p className="text-xs uppercase tracking-[0.4em] text-slate-400">Portfolio</p>
-						<h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">Real-time pulse</h2>
-						<p className="mt-2 max-w-xl text-sm text-slate-300">Track the health of every wallet at a glance — balances, USD value, and live SOL holdings update automatically.</p>
-					</div>
-				</div>
+			<section className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_40px_120px_rgba(12,18,32,0.45)] backdrop-blur">
 				<div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-					<div className="rounded-2xl border border-white/10 bg-white/10 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-sm">
+					<div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
 						<p className="text-xs uppercase tracking-[0.3em] text-slate-300">Wallets</p>
 						<p className="mt-3 text-3xl font-semibold text-white sm:text-4xl">{portfolio.totalWallets}</p>
 						<p className="mt-2 text-xs text-slate-400">Tracked across all chains</p>
 					</div>
-					<div className="rounded-2xl border border-white/10 bg-white/10 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-sm">
+					<div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
 						<p className="text-xs uppercase tracking-[0.3em] text-slate-300">Portfolio USD</p>
 						<p className="mt-3 text-3xl font-semibold text-white sm:text-4xl">${(portfolio.totalUsd || 0).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
 						<p className="mt-2 text-xs text-slate-400">Includes connected wallet SOL</p>
 					</div>
-					<div className="rounded-2xl border border-white/10 bg-white/10 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-sm">
+					<div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
 						<p className="text-xs uppercase tracking-[0.3em] text-slate-300">Live SOL</p>
 						<p className="mt-3 text-3xl font-semibold text-white sm:text-4xl">{(connectedSol ?? 0).toLocaleString(undefined, { maximumFractionDigits: 4 })}</p>
 						<p className="mt-2 text-xs text-slate-400">Updated every 15 seconds</p>
 					</div>
 				</div>
+			</section>
+      <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur shadow-[0_35px_110px_rgba(15,23,42,0.55)]">
+ 				<div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+ 					<div>
+ 						<p className="text-xs uppercase tracking-[0.35em] text-slate-300">Live session</p>
+ 						<h2 className="mt-2 text-2xl font-semibold text-white sm:text-3xl">Connected Wallet</h2>
+ 					</div>
+ 				</div>
+ 				{connected && baseAddress ? (
+					<div className="space-y-6">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+							<div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
+								<div>
+									<label className="mb-2 block text-xs uppercase tracking-[0.35em] text-slate-300">
+										Wallet Name
+									</label>
+									<input
+										value={connectedName}
+										onChange={(e) => setConnectedName(e.target.value)}
+										className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+										placeholder="Give it a friendly label"
+									/>
+								</div>
+								<div>
+									<label className="mb-2 block text-xs uppercase tracking-[0.35em] text-slate-300">
+										Wallet Address
+									</label>
+									<div className="flex items-center gap-3">
+										<p className="flex-1 break-all font-mono text-xs text-slate-100/80" title={baseAddress}>
+											{baseAddress}
+										</p>
+										<button
+											onClick={() => copy(baseAddress)}
+											className="flex-shrink-0 rounded-lg border border-white/15 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-white/15"
+										>
+											Copy
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                onClick={handleAirdrop}
+                disabled={airdropping}
+                className="rounded-xl border border-white/15 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {airdropping ? "Airdropping..." : "🪂 Airdrop 2 SOL"}
+              </button>
+              <button
+                onClick={() => fetchTransactions(baseAddress)}
+                disabled={loadingTransactions && selectedWalletForTransactions === baseAddress}
+                className="rounded-xl border border-white/15 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {loadingTransactions && selectedWalletForTransactions === baseAddress ? "Loading..." : "📜 View Transactions"}
+              </button>
+              <button
+                onClick={handleAddAnother}
+                className="rounded-xl border border-white/15 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/10"
+              >
+                + Add to Portfolio
+              </button>
+            </div>
+					</div>
+				) : (
+					<div className="py-12 text-center">
+						<p className="text-sm text-slate-300 sm:text-base">
+							Connect a wallet using the button in the navbar to get started.
+						</p>
+					</div>
+				)}
 			</section>
 			<section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur shadow-[0_35px_110px_rgba(15,23,42,0.55)]">
 				<div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
