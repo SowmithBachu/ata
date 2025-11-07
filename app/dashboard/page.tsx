@@ -162,12 +162,14 @@ useEffect(() => {
 		let cancelled = false;
 		async function fetchPrice() {
 			try {
-				const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd", { cache: "no-store" });
+				const res = await fetch("/api/prices/sol", { cache: "no-store" });
 				if (!res.ok) return;
 				const data = await res.json();
-				const price = data?.solana?.usd;
-				if (!cancelled && typeof price === "number") setSolPriceUsd(price);
-			} catch {}
+				const price = Number(data?.price);
+				if (!cancelled && Number.isFinite(price)) setSolPriceUsd(price);
+			} catch (error) {
+				console.error("Failed to fetch SOL price:", error);
+			}
 		}
 		fetchPrice();
 		// Refresh price every 60 seconds
