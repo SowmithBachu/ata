@@ -8,7 +8,7 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 export default function Navbar() {
 	const [mounted, setMounted] = useState(false);
 	useEffect(() => setMounted(true), []);
-    const pathname = usePathname();
+	const pathname = usePathname();
 
 	return (
 		<header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#050816]/70 backdrop-blur-sm">

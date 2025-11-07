@@ -61,7 +61,7 @@ export default function Home() {
       </section>
 
       {/* Feature Highlights */}
-      <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-10">
+      <section id="features" className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-10">
         <h2 className="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">Features</h2>
         <div className="mx-auto mt-10 max-w-3xl space-y-8 border-l border-white/10 pl-8">
           {[
